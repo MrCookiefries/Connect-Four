@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Four</title>
+    <!-- Start of Jasmine -->
+    <link rel="stylesheet" href="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.css" />
+    <!-- End of Jasmine -->
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Connect Four Game!</h1>
+        <form>
+            <label>
+                Columns:
+                <input id="columns" type="number" min="4" max="14" value="7">
+            </label>
+            <label>
+                Rows:
+                <input id="rows" type="number" min="4" max="12" value="6">
+            </label>
+            <input type="submit" value="Start">
+        </form>
+    </header>
+    <main>
+        <p class="hide"><span id="message"></span></p>
+        <section id="game"></section>
+    </main>
+    <script src="./script.js"></script>
+    <!-- Start of Jasmine -->
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+    <script src= "https://unpkg.com/jasmine-core/lib/jasmine-core/boot.js"></script>
+    <script src="./script.test.js"></script>
+    <!-- End of Jasmine -->
+</body>
+</html>

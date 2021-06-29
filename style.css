@@ -1,0 +1,81 @@
+/* Reset */
+body {
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+/* Variables */
+
+/* Game styles */
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+main p {
+    display: grid;
+    position: absolute;
+    min-width: 60%;
+    min-height: 60%;
+    align-items: center;
+    justify-content: center;
+    background-color: hsla(0, 0%, 100%, 0.85);
+    z-index: 10;
+}
+
+main p.hide {
+    display: none;
+}
+
+#message {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#message::after {
+    content: "Click to restart";
+    display: block;
+    margin-top: 0.5em;
+}
+
+#message:hover::after {
+    cursor: pointer;
+}
+
+#game {
+    display: grid;
+    width: 95vmin;
+    height: 95vmin;
+    grid-gap: 0.5em;
+}
+
+.spot {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spot span {
+    border-radius: 100%;
+    display: block;
+    width: 80%;
+    height: 80%;
+}
+
+.spot.a span {
+    background-color: red;
+}
+
+.spot.b span {
+    background-color: blue;
+}
+
