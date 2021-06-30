@@ -11,19 +11,6 @@ let currentPlayer = 'a';
 // end message element
 const msgEle = document.querySelector("#message");
 
-// user started game
-formEle.addEventListener("submit", e => {
-    e.preventDefault();
-    // update boardSize to final dimensions
-    boardSize = getBoardDimensions();
-    // update generated board
-    board = createBoard(boardSize);
-    // create the HTML with it
-    addHTML(boardSize);
-    // remove the form
-    formEle.remove();
-});
-
 // returns user selected board height & width
 function getBoardDimensions() {
     // extracts values from form inputs
@@ -60,30 +47,6 @@ function addHTML(size) {
         }
     }
 }
-
-// handles the gameplay
-gameEle.addEventListener("click", e => {
-    // handle any non spot clicks
-    if (e.target.tagName !== "DIV") return;
-    // clicked div
-    const clickedSpot = e.target;
-    // handle unailable columns
-    if (!hasSpace(clickedSpot)) return;
-    const foundSpot = findSpace(clickedSpot);
-    // fills up a spot
-    placeToken(foundSpot);
-    updateHTML(foundSpot);
-    // checks if game is won
-    if(hasWon(foundSpot)) {
-        display(`Player ${currentPlayer === 'a' ? "red": "blue"} has won!`);
-    }
-    // checks if game is tied
-    if (isTied()) {
-        display("Oh no, it's a tied game!");
-    }
-    // changes player
-    currentPlayer = currentPlayer === 'a' ? 'b': 'a';
-});
 
 // checks if the column has an empty spot to go in
 function hasSpace(spot) {
@@ -127,32 +90,19 @@ function updateHTML(spot) {
 // check win
 function hasWon(spot) {
     return [
-        horizontalWin(spot),
-        verticalWin(spot),
+        lineWin(spot, true),
+        lineWin(spot, false),
         diagonalsWin()
     ].some(bool => bool);
 }
 
-// won by horizontal
-function horizontalWin(spot) {
-    const {row} = spot;
-    const {columns} = boardSize;
+// won by line
+function lineWin(spot, isVertical) {
+    const {column, row} = spot;
+    const {columns, rows} = boardSize;
     let count = 0;
-    for (let c = 0; c < columns; c++) {
-        if (board[c][row] === currentPlayer) count++;
-        else count = 0;
-        if (count === 4) return true;
-    }
-    return false;
-}
-
-// won by vertical
-function verticalWin(spot) {
-    const {column} = spot;
-    const {rows} = boardSize;
-    let count = 0;
-    for (let r = 0; r < rows; r++) {
-        if (board[column][r] === currentPlayer) count++;
+    for (let i = 0; i < (isVertical ? rows: columns); i++) {
+        if ((isVertical ? board[column][i]: board[i][row]) === currentPlayer) count++;
         else count = 0;
         if (count === 4) return true;
     }
@@ -196,3 +146,44 @@ function display(msg) {
 msgEle.addEventListener("click", e => {
     window.location.reload();
 });
+
+// handles the gameplay
+function boardClick(e) {
+    // handle any non spot clicks
+    if (e.target.tagName !== "DIV") return;
+    // clicked div
+    const clickedSpot = e.target;
+    // handle unailable columns
+    if (!hasSpace(clickedSpot)) return;
+    const foundSpot = findSpace(clickedSpot);
+    // fills up a spot
+    placeToken(foundSpot);
+    updateHTML(foundSpot);
+    // checks if game is won
+    if(hasWon(foundSpot)) {
+        display(`Player ${currentPlayer === 'a' ? "red": "blue"} has won!`);
+        gameEle.removeEventListener("click", boardClick);
+    }
+    // checks if game is tied
+    if (isTied()) {
+        display("Oh no, it's a tied game!");
+        gameEle.removeEventListener("click", boardClick);
+    }
+    // changes player
+    currentPlayer = currentPlayer === 'a' ? 'b': 'a';
+}
+
+// user started game
+formEle.addEventListener("submit", e => {
+    e.preventDefault();
+    // update boardSize to final dimensions
+    boardSize = getBoardDimensions();
+    // update generated board
+    board = createBoard(boardSize);
+    // create the HTML with it
+    addHTML(boardSize);
+    // remove the form
+    formEle.remove();
+});
+
+gameEle.addEventListener("click", boardClick);

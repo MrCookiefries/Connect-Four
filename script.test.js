@@ -104,9 +104,7 @@ describe("hasSpace() determines if spaces are free", () => {
 
 // check win
 
-// horizontal
-
-// vertical
+// line
 
 // diagonals
 

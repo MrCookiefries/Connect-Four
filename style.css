@@ -1,7 +1,17 @@
+/* Variables */
+:root {
+    --color-red: #CE123E;
+    --color-white: #FDDDD8;
+    --color-blue: #3574AC;
+    --color-black: #060A0E;
+}
+
 /* Reset */
 body {
     min-height: 100vh;
     box-sizing: border-box;
+    background-color: var(--color-white);
+    color: var(--color-dark);
 }
 
 *, *::before, *::after {
@@ -10,14 +20,70 @@ body {
     padding: 0;
 }
 
-/* Variables */
+/* Title */
+header {
+    display: grid;
+    padding: 1em;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
 
-/* Game styles */
+h1 {
+    font-size: 3.5em;
+    margin-bottom: 0.75em;
+    color: var(--color-red);
+    text-shadow: 2px 2px 0.1em var(--color-black);
+}
+
+/* Form */
+form {
+    padding: 1.5em;
+    margin-bottom: 1.25em;
+    box-shadow: 0 0 1em 0.25em var(--color-black);
+    border: 0.25em solid var(--color-red);
+    border-radius: .75em;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.75em;
+    font-size: 1.25em;
+}
+
+input {
+    padding: 0.25em;
+    border: 0.15em solid var(--color-black);
+    border-radius: 0.25em;
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
+input[type="submit"] {
+    padding: 0.25em;
+    font-weight: 600;
+    color: var(--color-black);
+    border-color: var(--color-red);
+    font-size: 1.5em;
+    background-color: var(--color-white);
+    box-shadow: 0.15em 0.15em 0.35em var(--color-black);
+}
+
+input[type="submit"]:hover {
+    cursor: pointer;
+}
+
+
+/* Game */
 main {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    width: 95vmin;
+    height: 95vmin;
+    margin: 0 auto;
 }
 
 main p {
@@ -27,7 +93,7 @@ main p {
     min-height: 60%;
     align-items: center;
     justify-content: center;
-    background-color: hsla(0, 0%, 100%, 0.85);
+    background-color: hsla(8.11, 90%, 92%, 0.85);
     z-index: 10;
 }
 
@@ -52,13 +118,14 @@ main p.hide {
 
 #game {
     display: grid;
-    width: 95vmin;
-    height: 95vmin;
+    width: 100%;
+    height: 100%;
     grid-gap: 0.5em;
+    padding: 1em 0;
 }
 
 .spot {
-    background-color: black;
+    background-color: var(--color-black);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -72,10 +139,10 @@ main p.hide {
 }
 
 .spot.a span {
-    background-color: red;
+    background-color: var(--color-red);
 }
 
 .spot.b span {
-    background-color: blue;
+    background-color: var(--color-blue);
 }
 
